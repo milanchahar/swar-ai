@@ -1,0 +1,144 @@
+/* SwarAI Studio - Settings Specific Branding */
+
+.settings-page-content { 
+  height: calc(100vh - 64px); 
+  overflow-y: auto !important; 
+  background: #fff; 
+}
+
+.settings-container-minimal { 
+  padding: 60px 40px; 
+  max-width: 1000px; 
+  margin: 0 auto; 
+  background: #fff; 
+}
+
+.settings-view-header { 
+  border-bottom: 2.5px solid #000; 
+  margin-bottom: 40px; 
+  padding-bottom: 24px; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: flex-end; 
+}
+
+.settings-view-header h2 { 
+  font-family: var(--font-serif); 
+  font-size: 3.5rem; 
+  margin: 0; 
+  font-weight: 500; 
+}
+
+.settings-section-row { 
+  display: grid; 
+  grid-template-columns: 260px 1fr; 
+  gap: 60px; 
+  padding: 40px 0; 
+  border-bottom: 1px solid #f0f0f0; 
+}
+
+.settings-section-row.danger-zone {
+  margin-top: 40px;
+  border-top: 2px solid #000;
+}
+
+.section-label h4 { 
+  font-family: var(--font-serif); 
+  font-size: 1.4rem; 
+  margin: 0 0 10px 0; 
+}
+
+.section-label p { 
+  font-size: 0.85rem; 
+  color: #888; 
+  margin: 0; 
+}
+
+/* Form Controls */
+.input-field-group, .input-with-icon-pro { 
+  position: relative; 
+  display: flex; 
+  align-items: center; 
+  border-bottom: 2px solid #eee; 
+}
+
+.input-field-group:focus-within, .input-with-icon-pro:focus-within { 
+  border-bottom-color: #000; 
+}
+
+.input-with-icon-pro input, .input-field-group input { 
+  width: 100%; 
+  border: none !important; 
+  padding: 12px 0; 
+  background: transparent; 
+  outline: none; 
+  font-size: 0.95rem; 
+}
+
+.name-grid-row { 
+  display: flex; 
+  gap: 24px; 
+}
+
+.field-icon { 
+  margin-right: 14px; 
+  opacity: 0.3; 
+}
+
+.password-toggle-btn { 
+  position: absolute; 
+  right: 0; 
+  background: none; 
+  border: none; 
+  cursor: pointer; 
+  opacity: 0.4; 
+}
+
+.photo-upload-area { 
+  display: flex; 
+  align-items: center; 
+  gap: 40px; 
+}
+
+.avatar-preview-box { 
+  width: 120px; 
+  height: 120px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.avatar-style-selector {
+  display: flex;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.style-chip {
+  padding: 8px 16px;
+  border: 1px solid #eee;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.style-chip.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+/* Messages */
+.settings-message-toast {
+  padding: 12px 20px;
+  margin-bottom: 32px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.settings-message-toast.success { background: #f0fdf4; color: #15803d; border: 1px solid #bcf0da; }
+.settings-message-toast.error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+
+.btn-danger-studio { background: transparent; color: #ef4444; border: 1.5px solid #ef4444; padding: 12px 24px; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+.btn-danger-studio:hover { background: #ef4444; color: #fff; }

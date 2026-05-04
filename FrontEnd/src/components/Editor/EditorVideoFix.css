@@ -1,0 +1,49 @@
+/* FINAL STABLE VIDEO FIT SYSTEM */
+
+/* The Stage should act as a responsive container that lets the video determine its height */
+.video-stage {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 300px !important;
+  max-height: 600px !important; /* Cap to prevent extreme vertical scroll */
+  background: #000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+}
+
+.premium-player {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.video-viewport {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+}
+
+.main-video {
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 600px !important; /* Match the stage cap */
+  display: block !important;
+  object-fit: contain !important; /* Absolute guarantee of no cropping */
+}
+
+/* Ensure the hub itself doesn't have restrictive height */
+.studio-hub {
+  height: auto !important;
+  min-height: min-content !important;
+}
+
+.video-section {
+  width: 100% !important;
+  height: auto !important;
+}

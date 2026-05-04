@@ -1,0 +1,739 @@
+/* SwarAI Studio - THE DEFINITIVE DESIGN SYSTEM */
+
+:root {
+  --studio-bg: #fafafa;
+  --studio-card-bg: #ffffff;
+  --studio-border: #eeeeee;
+  --studio-accent: #f29b7a;
+  --studio-text: #000000;
+  --studio-text-muted: #888888;
+  --font-serif: 'Instrument Serif', serif;
+  --font-sans: 'Inter', sans-serif;
+}
+
+/* 1. Reset Global Controls */
+html, body {
+  margin: 0; padding: 0;
+  background-color: var(--studio-bg); font-family: var(--font-sans); color: var(--studio-text);
+}
+
+.editor-container {
+  display: flex; flex-direction: column; height: 100vh; width: 100vw; overflow: hidden !important;
+}
+
+/* 2. Common Components */
+.editor-header {
+  height: 64px; background: #fff; border-bottom: 1px solid var(--studio-border);
+  display: flex; align-items: center; justify-content: space-between; padding: 0 40px;
+  flex-shrink: 0; z-index: 2000; position: sticky; top: 0;
+}
+
+.logo-studio { font-family: var(--font-serif); font-size: 1.8rem; color: #000; text-decoration: none; font-weight: 500; }
+
+.btn-black {
+  background: #000; color: #fff; padding: 14px 28px; border: none; cursor: pointer;
+  font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
+  display: flex; align-items: center; gap: 10px; transition: opacity 0.2s;
+}
+.btn-black:hover { opacity: 0.8; }
+
+.btn-white-outlined {
+  background: #fff; color: #000; border: 1.5px solid #000; padding: 14px 28px; cursor: pointer;
+  font-weight: 700; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.12em;
+  display: flex; align-items: center; gap: 10px;
+}
+
+.btn-reset-light {
+  background: #fff; border: 1.5px solid #000; color: #000; padding: 6px 14px;
+  font-size: 0.6rem; font-weight: 900; letter-spacing: 0.15em; cursor: pointer; text-transform: uppercase;
+}
+
+/* 3. Editor Workspace Layout */
+.main-workspace-grid { flex: 1; display: flex; width: 100%; overflow: hidden !important; }
+.main-workspace-grid.single-sidebar-layout { display: grid; grid-template-columns: 1fr 440px; }
+
+.editor-workspace {
+  flex: 1; display: flex !important; justify-content: center !important; align-items: center !important;
+  padding: 40px; background: var(--studio-bg); overflow-y: auto !important;
+}
+
+.studio-hub {
+  width: 100%; max-width: 840px; background: #fff; border: 1px solid var(--studio-border);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.06); transform: translateY(-10px);
+}
+
+.studio-viewport-header { padding: 24px 32px; border-bottom: 1px solid #f9f9f9; display: flex; justify-content: space-between; align-items: center; }
+.file-pill { font-size: 0.7rem; font-weight: 800; color: #999; text-transform: uppercase; letter-spacing: 0.1em; display: flex; align-items: center; gap: 8px; }
+
+.video-stage { width: 100%; min-height: 480px; background: #fff; display: flex; align-items: center; justify-content: center; position: relative; }
+.video-stage.has-video { background: #000; }
+
+.premium-player { position: relative; width: 100%; height: 500px; background: #000; display: flex; justify-content: center; align-items: center; }
+.video-viewport { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; }
+.overlay-controls {
+  position: absolute; bottom: 0; left: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  padding: 40px 24px 20px; opacity: 0; transition: opacity 0.3s; z-index: 200;
+}
+.premium-player:hover .overlay-controls { opacity: 1; }
+
+.progress-bar-container { height: 4px; background: rgba(255,255,255,0.2); width: 100%; cursor: pointer; position: relative; margin-bottom: 20px; transition: height 0.1s; }
+.progress-bar-container:hover { height: 6px; }
+.progress-track-fill { background: #fff; height: 100%; width: 0%; position: absolute; left: 0; transition: width 0.1s linear; }
+
+.controls-row { display: flex; justify-content: space-between; align-items: center; color: #fff; }
+.left-controls, .right-controls { display: flex; align-items: center; gap: 20px; }
+.control-btn { background: none; border: none; color: #fff; cursor: pointer; padding: 10px; opacity: 0.8; }
+.time-info { font-size: 0.75rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.glass-caption {
+  position: absolute; bottom: 100px; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); padding: 18px 32px; border-radius: 12px;
+  width: 85%; text-align: center; pointer-events: none; z-index: 150;
+}
+.word { font-size: 2.2rem; font-weight: 900; color: rgba(255,255,255,0.35); margin: 0 5px; display: inline-block; }
+.word.active { color: #fff; transform: scale(1.1); text-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+
+.studio-control-toolbar { padding: 32px; border-top: 1px solid var(--studio-border); display: flex; justify-content: space-between; align-items: center; }
+.toolbar-item { display: flex; flex-direction: column; gap: 8px; }
+.toolbar-item label { font-size: 0.6rem; font-weight: 900; text-transform: uppercase; color: #aaa; letter-spacing: 0.15em; }
+.toolbar-item select { font-weight: 800; border: 2px solid #000; padding: 10px; height: 44px; outline: none; }
+.toolbar-item input[type="range"] { -webkit-appearance: none; width: 180px; height: 3px; background: #000; cursor: pointer; }
+.toolbar-item input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 18px; height: 18px; background: #000; border: 3px solid #fff; box-shadow: 0 0 0 1px #000; border-radius: 50%; }
+
+/* 4. Transcript Sidebar */
+.editor-transcript-aside { background: #fff; border-left: 1px solid var(--studio-border); height: 100%; overflow: hidden !important; }
+.transcript-sidebar { display: flex; flex-direction: column; height: 100%; overflow: hidden !important; }
+.transcript-list { flex: 1; overflow-y: auto !important; padding-bottom: 60px; }
+.transcript-list::-webkit-scrollbar { width: 5px; }
+.transcript-list::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+
+.transcript-row { display: flex; gap: 20px; padding: 20px 32px; border-bottom: 1px solid #f9f9f9; cursor: pointer; transition: 0.15s; }
+.transcript-row.active { background: #000 !important; color: #fff !important; }
+.caption-text-studio { font-size: 0.9rem; line-height: 1.5; margin: 0; }
+.row-time { font-size: 0.7rem; font-weight: 800; color: #aaa; min-width: 40px; }
+.transcript-row.active .row-time { color: rgba(255,255,255,0.4) !important; }
+
+/* Logo Branding Sync (Shared with Landing Page) */
+.logo a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  text-decoration: none !important;
+  color: #000 !important;
+  font-family: var(--font-serif) !important;
+  font-size: 1.8rem !important;
+  font-weight: 500 !important;
+}
+
+.logo-icon {
+  width: 28px !important;
+  height: 28px !important;
+  background-color: #000 !important;
+  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%) !important;
+}
+
+/* Video Stage Layout */
+.video-stage {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  max-height: calc(100vh - 400px);
+}
+
+
+/* Studio Hub Refinement: Compact card for better visibility */
+.studio-hub {
+  max-width: 840px !important; /* Slightly more compact width */
+  margin: 0 auto !important;
+}
+
+.video-stage {
+  max-height: calc(100vh - 360px) !important; /* Increased breathing room for toolbars */
+  min-height: 400px !important;
+  margin-bottom: 0 !important;
+}
+
+.studio-control-toolbar {
+  padding: 24px 32px !important;
+  border-top: 1px solid var(--studio-border) !important;
+  background: #fff !important;
+}
+
+/* Nuclear containment for the Video Player */
+.studio-hub {
+  overflow: hidden !important; /* Prevent ANY child from leaking out */
+}
+
+.video-stage {
+  height: auto !important;
+  max-height: calc(100vh - 400px) !important;
+  aspect-ratio: 16 / 9 !important; /* Enforce a cinematic ratio to help containment */
+  overflow: hidden !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #000 !important;
+}
+
+.premium-player, .video-viewport {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.main-video {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+/* Selective Scrolling Policy (Editor Only) */
+.full-width-layout {
+  height: 100vh !important;
+  overflow: hidden !important; /* Lock the main window */
+}
+
+.editor-transcript-aside {
+  height: calc(100vh - 84px) !important; /* Accommodate the header */
+  overflow-y: auto !important; /* Enable scrolling for sidebar only */
+  background: #fff !important;
+  border-left: 1px solid var(--studio-border) !important;
+}
+
+/* Premium Scrollbar for Sidebar */
+.editor-transcript-aside::-webkit-scrollbar {
+  width: 6px;
+}
+
+.editor-transcript-aside::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.editor-transcript-aside::-webkit-scrollbar-thumb {
+  background: #eee;
+  border-radius: 10px;
+}
+
+.editor-transcript-aside::-webkit-scrollbar-thumb:hover {
+  background: #ddd;
+}
+
+/* Global Modal Smooth Transitions */
+.modal-overlay {
+  animation: modal-backdrop-fade 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-content {
+  animation: modal-content-pop 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-backdrop-fade {
+  from { opacity: 0; backdrop-filter: blur(0); }
+  to { opacity: 1; backdrop-filter: blur(20px); }
+}
+
+@keyframes modal-content-pop {
+  from { opacity: 0; transform: scale(0.95) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Modal Action Buttons Alignment Fix */
+.modal-actions {
+  display: flex !important;
+  gap: 16px !important;
+  width: 100% !important;
+  margin-top: 40px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.modal-actions button {
+  flex: 1 !important;
+  height: 56px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 800 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.1em !important;
+  border-radius: 0 !important;
+}
+
+.btn-danger {
+  background: #db4f45 !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.btn-danger:hover {
+  background: #c23e35 !important;
+}
+
+/* Absolute Professional Toolbar Alignment */
+.studio-control-toolbar {
+  display: flex !important;
+  align-items: center !important; /* Center the action button vertically with the controls */
+  justify-content: space-between !important;
+  padding: 32px 48px !important;
+  min-height: 120px !important;
+}
+
+.toolbar-left, .toolbar-right {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.toolbar-right {
+  gap: 40px !important; /* Breathe between font and size controls */
+}
+
+/* Ensure settings within the toolbar are neatly stacked but aligned */
+.setting-control {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+}
+
+.setting-control label {
+  font-size: 0.65rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  color: #bbb !important; /* Subtle but clear labels */
+  margin: 0 !important;
+}
+
+/* Professional Baseline Alignment System */
+.studio-control-toolbar {
+  display: flex !important;
+  align-items: flex-end !important; /* NEW: Align all inputs to the same baseline */
+  justify-content: space-between !important;
+  padding: 40px 60px !important;
+  min-height: 140px !important;
+  background: #fff !important;
+}
+
+.toolbar-left {
+  /* Push the button to align with inputs, not labels */
+  padding-bottom: 2px !important; 
+}
+
+.toolbar-right {
+  display: flex !important;
+  align-items: flex-end !important;
+  gap: 60px !important;
+}
+
+.setting-control {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  justify-content: flex-end !important;
+}
+
+/* Ensure the action button matches the height and prominence of the dropdown */
+.toolbar-left .btn-white-outlined {
+  height: 52px !important;
+  min-width: 180px !important;
+  padding: 0 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: 800 !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.12em !important;
+  border: 1.5px solid #000 !important;
+}
+
+.setting-control label {
+  font-size: 0.7rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.15em !important;
+  color: #ccc !important;
+  margin-bottom: 4px !important;
+  text-transform: uppercase !important;
+}
+
+/* Precision Baselines for Select and Range */
+.setting-control select {
+  height: 52px !important;
+  min-width: 220px !important;
+  border: 1.5px solid #000 !important;
+  border-radius: 0 !important;
+  padding: 0 16px !important;
+  font-weight: 700 !important;
+}
+
+.setting-control input[type="range"] {
+  height: 52px !important; /* Match heights for baseline alignment */
+  display: flex !important;
+  align-items: center !important;
+  width: 200px !important;
+}
+
+/* Inline Single-Line Toolbar Layout */
+.studio-control-toolbar {
+  align-items: center !important; /* Back to center for single-line flow */
+  min-height: 100px !important;
+  padding: 0 60px !important;
+}
+
+.toolbar-right {
+  gap: 48px !important;
+}
+
+.setting-control {
+  flex-direction: row !important; /* Inline labels and inputs */
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.setting-control label {
+  margin-bottom: 0 !important; /* Remove bottom margin for inline flow */
+  white-space: nowrap !important;
+  color: #888 !important; /* Slightly darker for better visibility when inline */
+}
+
+.setting-control select {
+  min-width: 180px !important;
+  padding: 0 12px !important;
+  font-size: 0.85rem !important;
+}
+
+.setting-control input[type="range"] {
+  height: auto !important;
+  width: 160px !important;
+}
+
+/* Absolute Inline Alignment - Selector Fix */
+.toolbar-right {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: 48px !important;
+}
+
+.toolbar-item {
+  display: flex !important;
+  flex-direction: row !important; /* Force labels to sit next to inputs */
+  align-items: center !important;
+  gap: 16px !important;
+}
+
+.toolbar-item label {
+  white-space: nowrap !important;
+  margin-bottom: 0 !important;
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.1em !important;
+  color: #888 !important;
+  text-transform: uppercase !important;
+}
+
+.toolbar-item select {
+  height: 44px !important;
+  min-width: 170px !important;
+  border: 1.5px solid #000 !important;
+  background: #fff !important;
+  padding: 0 12px !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+}
+
+.toolbar-item input[type="range"] {
+  width: 140px !important;
+  height: auto !important;
+}
+
+/* Ensure the left button is also vertically centered with this new row */
+.toolbar-left {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.toolbar-left button {
+  height: 44px !important; /* Match heights perfectly */
+}
+
+/* Studio Toolbar Spacing Polish */
+.studio-control-toolbar {
+  padding: 0 64px !important;
+  gap: 120px !important; /* Huge gap between action (left) and settings (right) */
+  min-height: 120px !important;
+}
+
+.toolbar-right {
+  gap: 64px !important; /* More breathing room between settings */
+}
+
+.toolbar-item {
+  gap: 20px !important; /* More space between label and dropdown/slider */
+}
+
+.toolbar-item label {
+  font-size: 0.75rem !important;
+  color: #aaa !important;
+  letter-spacing: 0.15em !important;
+}
+
+.toolbar-left button {
+  min-width: 200px !important;
+  padding: 0 40px !important; /* Larger action button */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Robust Toolbar Visibility Fix */
+.studio-control-toolbar {
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 0 48px !important;
+  gap: 32px !important; /* Smaller baseline gap, justify-content handles the rest */
+  min-height: 110px !important;
+  overflow: visible !important;
+}
+
+.toolbar-right {
+  display: flex !important;
+  gap: 40px !important; 
+  align-items: center !important;
+}
+
+.toolbar-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-shrink: 0 !important; /* Prevent components from disappearing when space is tight */
+}
+
+/* Premium Range Input Styling to ensure visibility across all browsers */
+input[type="range"] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 120px !important;
+  height: 6px !important;
+  background: #eee !important;
+  outline: none !important;
+  border-radius: 10px !important;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 18px !important;
+  height: 18px !important;
+  background: #000 !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  border: 2px solid #fff !important;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.toolbar-left .btn-white-outlined {
+  min-width: 160px !important; /* Slightly more compact to fit smaller Hubs */
+}
+
+/* Final Optimized Integrated Toolbar */
+.studio-control-toolbar {
+  min-height: 140px !important; /* Increased height as requested */
+  padding: 0 40px !important;
+  gap: 20px !important; /* Compact baseline gap */
+  justify-content: flex-start !important; /* Align everything from the left for predictable flow */
+}
+
+.toolbar-left {
+  margin-right: auto !important; /* Pushes settings to the right */
+}
+
+.toolbar-right {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 32px !important; /* Balanced gap between settings */
+}
+
+.toolbar-item {
+  gap: 10px !important; /* Tighter internal space for labels */
+}
+
+.toolbar-item label {
+  font-size: 0.65rem !important; /* Slightly smaller for fitting more controls */
+  color: #999 !important;
+}
+
+.toolbar-item select {
+  min-width: 140px !important; /* Narrower select */
+  height: 40px !important;
+}
+
+.toolbar-item input[type="range"] {
+  width: 80px !important; /* Narrower sliders for multi-axis control */
+}
+
+.toolbar-left button {
+  min-width: 160px !important;
+  height: 40px !important;
+  font-size: 0.7rem !important;
+}
+
+/* Professional Matrix Toolbar Layout */
+.studio-control-toolbar {
+  min-height: 180px !important; /* Premium height for the control bay */
+  padding: 32px 60px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  border-top: 1px solid #f0f0f0 !important;
+}
+
+.toolbar-right {
+  display: flex !important;
+  gap: 60px !important; /* Large gap between the two configuration columns */
+}
+
+.settings-column {
+  display: flex !important;
+  flex-direction: column !important; /* Stack vertically within the column */
+  gap: 20px !important; /* Space between the two controls in a column */
+}
+
+.toolbar-item {
+  display: flex !important;
+  flex-direction: row !important; /* Keep label and input on one line */
+  align-items: center !important;
+  gap: 16px !important;
+  min-width: 240px !important; /* Ensure consistent column width */
+}
+
+.toolbar-item label {
+  width: 60px !important; /* Fixed label width for perfect vertical alignment */
+  font-size: 0.7rem !important;
+  font-weight: 800 !important;
+  color: #bbb !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  margin: 0 !important;
+}
+
+.toolbar-item select, .toolbar-item input[type="range"] {
+  flex: 1 !important; /* Fill the remaining column space */
+  height: 40px !important;
+}
+
+.toolbar-left button {
+  min-width: 220px !important;
+  height: 52px !important; /* Larger, more prominent action button */
+  font-size: 0.8rem !important;
+  font-weight: 900 !important;
+  letter-spacing: 0.15em !important;
+}
+
+/* Architectural Square Sliders */
+input[type="range"] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 100% !important;
+  height: 2px !important; /* Ultra-thin architectural track */
+  background: #e0e0e0 !important;
+  outline: none !important;
+  border-radius: 0 !important; /* Square track ends */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  background: #000 !important;
+  border-radius: 0 !important; /* PURE SQUARE HANDLE */
+  cursor: pointer !important;
+  border: none !important;
+  box-shadow: none !important;
+  transition: transform 0.1s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Fix for Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 16px !important;
+  height: 16px !important;
+  background: #000 !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  border: none !important;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 2px !important;
+  background: #e0e0e0 !important;
+  border-radius: 0 !important;
+}
+
+/* Precision Line Sliders */
+input[type="range"] {
+  background: transparent !important; /* Remove any "pill" backgrounds */
+  -webkit-appearance: none !important;
+  width: 100% !important;
+  height: 24px !important; /* Increase clickable area while keeping line thin */
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Webkit Track - Thin Straight Line */
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100% !important;
+  height: 1.5px !important; /* Ultra-thin straight line */
+  background: #e5e5e5 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* Webkit Thumb - Square Lob */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  height: 16px !important;
+  width: 16px !important;
+  background: #000 !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  margin-top: -7.25px !important; /* Center the 16px thumb on the 1.5px line */
+  border: none !important;
+}
+
+/* Firefox Track - Thin Straight Line */
+input[type="range"]::-moz-range-track {
+  width: 100% !important;
+  height: 1.5px !important;
+  background: #e5e5e5 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+/* Firefox Thumb - Square Lob */
+input[type="range"]::-moz-range-thumb {
+  height: 16px !important;
+  width: 16px !important;
+  background: #000 !important;
+  border-radius: 0 !important;
+  cursor: pointer !important;
+  border: none !important;
+}
+
+/* Final Slider Alignment Polish */
+input[type="range"] {
+  margin-right: 48px !important; /* Added breathing room from the right edge */
+}

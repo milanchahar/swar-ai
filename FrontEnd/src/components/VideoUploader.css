@@ -1,0 +1,91 @@
+/* VideoUploader.css - Studio Upload Stage Styling */
+
+.video-uploader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-stage-centering {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px;
+}
+
+.minimal-upload-ready {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.upload-brand-circle {
+  width: 80px;
+  height: 80px;
+  background: #f9f9f9;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  margin-bottom: 8px;
+}
+
+.minimal-upload-ready h2 {
+  font-family: var(--font-serif, 'Instrument Serif', serif);
+  font-size: 2.5rem;
+  font-weight: 500;
+  margin: 0;
+  color: #000;
+}
+
+.minimal-upload-ready p {
+  color: #888;
+  font-size: 0.95rem;
+  max-width: 320px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Micro Loader during processing - Non blocking */
+.micro-loader-container {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+  pointer-events: none; /* Allow interaction with the video while loading */
+}
+
+.orbital-spinner {
+  width: 60px;
+  height: 60px;
+  position: relative;
+}
+
+.orbit-core {
+  width: 100%; height: 100%;
+  border: 3px solid #eee;
+  border-radius: 50%;
+}
+
+.orbit-ring {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  border: 3px solid transparent;
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

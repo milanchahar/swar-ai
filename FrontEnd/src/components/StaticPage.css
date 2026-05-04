@@ -1,0 +1,46 @@
+.static-page-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+}
+
+.static-content-container {
+  padding: 160px 0 100px;
+  flex: 1;
+}
+
+.static-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 5rem;
+  margin-bottom: 60px;
+  letter-spacing: -0.02em;
+  color: #000;
+}
+
+.static-body {
+  max-width: 800px;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  color: #444;
+}
+
+.static-body p {
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+
+.placeholder-text {
+  margin-bottom: 24px;
+  color: #888;
+}
+
+@media (max-width: 768px) {
+  .static-title {
+    font-size: 3rem;
+  }
+  
+  .static-body {
+    font-size: 1.1rem;
+  }
+}

@@ -1,0 +1,85 @@
+/* Control Toolbar Refinement */
+.studio-control-toolbar {
+  padding: 40px;
+  background: white;
+  border-top: 1px solid var(--studio-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; /* Align all items to the bottom baseline */
+  min-height: 120px;
+}
+
+.toolbar-left, .toolbar-right {
+  display: flex;
+  align-items: flex-end;
+  gap: 32px;
+}
+
+.toolbar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toolbar-item label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin: 0;
+}
+
+.toolbar-item select {
+  -webkit-appearance: none;
+  appearance: none;
+  background: white url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>') no-repeat right 12px center;
+  border: 1px solid #000;
+  padding: 12px 40px 12px 16px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  min-width: 180px;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-black {
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  height: max-content;
+}
+
+.btn-black:hover {
+  background: var(--primary);
+}
+
+/* Range Input Styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 160px;
+  height: 2px;
+  background: #000;
+  outline: none;
+  margin: 18px 0; /* Vertical centering roughly with the select */
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #000;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  box-shadow: 0 0 0 1px #000;
+}
